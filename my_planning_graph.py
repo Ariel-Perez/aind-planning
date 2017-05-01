@@ -401,14 +401,10 @@ class PlanningGraph():
         :param node_a2: PgNode_a
         :return: bool
         '''
-        if set(node_a1.action.effect_add).intersection(
-                node_a2.action.effect_rem):
-            return True
-        if set(node_a1.action.effect_rem).intersection(
-                node_a2.action.effect_add):
-            return True
-
-        return False
+        return set(node_a1.action.effect_add).intersection(
+            node_a2.action.effect_rem) or \
+            set(node_a2.action.effect_add).intersection(
+                node_a1.action.effect_rem)
 
     def interference_mutex(self, node_a1: PgNode_a, node_a2: PgNode_a) -> bool:
         '''
